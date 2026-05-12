@@ -1,13 +1,104 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ro">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aplicație Notițe</title>
+    <title>Online Notes</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <main class="app-shell">
+      <section class="sidebar" aria-label="Panou creare notite">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">N</div>
+          <div>
+            <h1>Notes</h1>
+            <p></p>
+          </div>
+        </div>
 
+        <form id="noteForm" class="note-form">
+          <label for="noteTitle">Titlu:</label>
+          <input id="noteTitle" type="text" placeholder="Ex: Idei proiect" maxlength="80" required />
 
-    <div id="app.js"></div>
+          <label for="noteContent">Notes:</label>
+          <textarea id="noteContent" placeholder="Scrie aici..." rows="9" required></textarea>
+
+          <fieldset class="color-picker">
+            <legend>Culoare</legend>
+            <label class="swatch swatch-yellow">
+              <input type="radio" name="noteColor" value="yellow" checked />
+              <span>Galben</span>
+            </label>
+            <label class="swatch swatch-green">
+              <input type="radio" name="noteColor" value="green" />
+              <span>Verde</span>
+            </label>
+            <label class="swatch swatch-blue">
+              <input type="radio" name="noteColor" value="blue" />
+              <span>Albastru</span>
+            </label>
+            <label class="swatch swatch-pink">
+              <input type="radio" name="noteColor" value="pink" />
+              <span>Roz</span>
+            </label>
+          </fieldset>
+
+          <button type="submit" id="submitButton">Adauga notita</button>
+          <button type="button" id="cancelEditButton" class="ghost hidden">Anuleaza editarea</button>
+        </form>
+      </section>
+
+      <section class="workspace" aria-label="Lista notite">
+        <header class="toolbar">
+          <div>
+            <p class="eyebrow">Online Notes</p>
+            <h2>Panou notite</h2>
+          </div>
+
+          <div class="toolbar-actions">
+            <input id="searchInput" type="search" placeholder="Cauta notite..." />
+            <select id="sortSelect" aria-label="Sortare notite">
+              <option value="updated">Ultimele editate</option>
+              <option value="created">Cele mai noi</option>
+              <option value="title">Titlu A-Z</option>
+            </select>
+          </div>
+        </header>
+
+        <div class="stats" aria-live="polite">
+          <span id="notesCount">0 notes</span>
+          <span id="pinnedCount">0 fixate</span>
+        </div>
+
+        <div id="notesGrid" class="notes-grid"></div>
+
+        <article id="emptyState" class="empty-state">
+          <h3>Nicio notita gasita</h3>
+          <p>Adauga prima notita sau modifica termenul de cautare.</p>
+        </article>
+      </section>
+    </main>
+
+    <template id="noteTemplate">
+      <article class="note-card">
+        <div class="note-top">
+          <h3></h3>
+          <button class="icon-button pin-button" type="button" title="Fixeaza notita" aria-label="Fixeaza notita">
+            <span aria-hidden="true">★</span>
+          </button>
+        </div>
+        <p class="note-content"></p>
+        <div class="note-footer">
+          <time></time>
+          <div class="note-actions">
+            <button class="small-button edit-button" type="button">Editeaza</button>
+            <button class="small-button danger delete-button" type="button">Sterge</button>
+          </div>
+        </div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
   </body>
 </html>
